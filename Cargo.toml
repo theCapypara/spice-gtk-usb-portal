@@ -22,7 +22,7 @@ capi = ["dep:gtk", "parent_window_gtk4"]
 _glib_log = ["glib/log"]
 
 [build-dependencies]
-cargo_metadata = "0.19"
+cargo_metadata = "0.23"
 cbindgen = { git = "https://github.com/elmarco/cbindgen.git", rev = "0bb9eb6764a78929f3326187e0eef50287c41923", features = ["gobject"] }
 
 [package.metadata.capi.header]

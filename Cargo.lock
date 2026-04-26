@@ -335,15 +335,6 @@ dependencies = [
 
 [[package]]
 name = "cargo-platform"
-version = "0.1.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e35af189006b9c0f00a064685c727031e3ed2d8020f7ba284d78cc2671bd36ea"
-dependencies = [
- "serde",
-]
-
-[[package]]
-name = "cargo-platform"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dd0061da739915fae12ea00e16397555ed4371a6bb285431aab930f61b0aa4ba"
@@ -354,26 +345,12 @@ dependencies = [
 
 [[package]]
 name = "cargo_metadata"
-version = "0.19.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd5eb614ed4c27c5d706420e4320fbe3216ab31fa1c33cd8246ac36dae4479ba"
-dependencies = [
- "camino",
- "cargo-platform 0.1.9",
- "semver",
- "serde",
- "serde_json",
- "thiserror",
-]
-
-[[package]]
-name = "cargo_metadata"
 version = "0.23.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ef987d17b0a113becdd19d3d0022d04d7ef41f9efe4f3fb63ac44ba61df3ade9"
 dependencies = [
  "camino",
- "cargo-platform 0.3.3",
+ "cargo-platform",
  "semver",
  "serde",
  "serde_json",
@@ -1850,7 +1827,7 @@ name = "rdw4"
 version = "0.1.0"
 source = "git+https://gitlab.gnome.org/theCapypara/rdw.git?rev=c5f22c24b74eaa4ad2829bd533b7e440140b6df9#c5f22c24b74eaa4ad2829bd533b7e440140b6df9"
 dependencies = [
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "cbindgen 0.28.0 (git+https://gitlab.gnome.org/theCapypara/rdw.git?rev=c5f22c24b74eaa4ad2829bd533b7e440140b6df9)",
  "derivative",
  "epoxy",
@@ -1882,7 +1859,7 @@ name = "rdw4-spice"
 version = "0.1.0"
 source = "git+https://gitlab.gnome.org/theCapypara/rdw.git?rev=c5f22c24b74eaa4ad2829bd533b7e440140b6df9#c5f22c24b74eaa4ad2829bd533b7e440140b6df9"
 dependencies = [
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "cbindgen 0.28.0 (git+https://gitlab.gnome.org/theCapypara/rdw.git?rev=c5f22c24b74eaa4ad2829bd533b7e440140b6df9)",
  "derivative",
  "futures-channel",
@@ -2115,7 +2092,7 @@ name = "spice-gtk-usb-portal"
 version = "0.1.0"
 dependencies = [
  "ashpd",
- "cargo_metadata 0.19.2",
+ "cargo_metadata",
  "cbindgen 0.28.0 (git+https://github.com/elmarco/cbindgen.git?rev=0bb9eb6764a78929f3326187e0eef50287c41923)",
  "futures-util",
  "gio 0.22.5",
