@@ -1,0 +1,49 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    name: cargo build (default)
+    runs-on: ubuntu-24.04
+    container:
+      image: fedora:42
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/action/setup-fedora
+      - run: cargo build --workspace --all-targets
+
+  feature-matrix:
+    name: cargo build (features=${{ matrix.feature }})
+    runs-on: ubuntu-24.04
+    container:
+      image: fedora:42
+    strategy:
+      fail-fast: false
+      matrix:
+        feature:
+          - parent_window_gtk4
+          - parent_window_gtk4_wayland
+          - parent_window_gtk4_x11
+          - parent_window_wayland
+          - parent_window_raw_handle
+          - capi
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/action/setup-fedora
+      - run: cargo build --no-default-features --features ${{ matrix.feature }}
+
+  doc:
+    name: cargo doc
+    runs-on: ubuntu-24.04
+    container:
+      image: fedora:42
+    env:
+      RUSTDOCFLAGS: -D warnings
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/action/setup-fedora
+      - run: cargo doc --no-deps --all-features

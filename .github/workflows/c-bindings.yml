@@ -1,0 +1,55 @@
+name: C bindings
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  c-bindings:
+    name: make / vapi / docs / smoke
+    runs-on: ubuntu-24.04
+    container:
+      image: fedora:42
+    env:
+      # Needed by gi-docgen (`make doc`) so it can find Gtk-4.0.gir,
+      # SpiceClientGLib-2.0.gir, GObject-2.0.gir, Gio-2.0.gir from the
+      # gobject-introspection-devel / gtk4-devel / spice-glib-devel packages.
+      XDG_DATA_DIRS: /usr/local/share:/usr/share
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: ./.github/action/setup-fedora
+        with:
+          c-bindings: 'true'
+
+      - name: make (cargo cinstall + g-ir-scanner + g-ir-compiler [+ vapigen])
+        run: make
+
+      - name: make vapi
+        run: make vapi
+
+      - name: make doc (gi-docgen)
+        run: make doc
+
+      # minimal import check
+      - name: GIR smoke test (typelib + GType resolution)
+        env:
+          GI_TYPELIB_PATH: ${{ github.workspace }}/inst/usr/lib64/girepository-1.0
+          LD_LIBRARY_PATH: ${{ github.workspace }}/inst/usr/lib64
+        run: |
+          python3 - <<'PY'
+          import gi
+          gi.require_version("SpiceUsbPortal", "0.1")
+          from gi.repository import SpiceUsbPortal as M
+          for t in (M.Devices, M.DeviceDescription, M.OwnedUsbDevice, M.Usbredir):
+              print(t.__gtype__.name)
+          PY
+
+      - name: Upload built artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spice-gtk-usb-portal-inst
+          path: inst/
+          if-no-files-found: error
