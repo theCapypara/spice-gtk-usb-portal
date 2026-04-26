@@ -2,3 +2,5 @@
 .flatpak/
 .vscode/
 target/
+inst/
+__pycache__/

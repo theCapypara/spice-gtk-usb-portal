@@ -5,14 +5,37 @@ description = "Bridge between spice-gtk and the USB portal"
 authors = ["Marco Köpcke <hello@capypara.de>"]
 edition = "2024"
 
+[lib]
+crate-type = ["cdylib", "rlib", "staticlib"]
+
 [features]
 parent_window_gtk4 = ["ashpd/gtk4"]
 parent_window_gtk4_wayland = ["ashpd/gtk4_wayland"]
 parent_window_gtk4_x11 = ["ashpd/gtk4_x11"]
 parent_window_wayland = ["ashpd/wayland"]
 parent_window_raw_handle = ["ashpd/raw_handle"]
+# Enables generation of the C header via cbindgen during build.rs and
+# pulls in gtk4 + the GTK4 portal-window backend needed by the C entry
+# points. Set automatically by `cargo cinstall`.
+capi = ["dep:gtk", "parent_window_gtk4"]
 # private features
 _glib_log = ["glib/log"]
+
+[build-dependencies]
+cargo_metadata = "0.19"
+cbindgen = { git = "https://github.com/elmarco/cbindgen.git", rev = "0bb9eb6764a78929f3326187e0eef50287c41923", features = ["gobject"] }
+
+[package.metadata.capi.header]
+name = "spice-usb-portal"
+subdirectory = "spice-gtk-usb-portal"
+generation = false
+
+[package.metadata.capi.library]
+name = "spice-gtk-usb-portal"
+
+[package.metadata.capi.pkg_config]
+filename = "spice-gtk-usb-portal"
+requires = "gtk4 spice-client-glib-2.0"
 
 [dependencies]
 log = "0.4"
@@ -24,6 +47,11 @@ version = "0.22"
 
 [dependencies.gio]
 version = "0.22"
+
+[dependencies.gtk]
+package = "gtk4"
+version = "0.11"
+optional = true
 
 [dependencies.ashpd]
 version = "0.13"

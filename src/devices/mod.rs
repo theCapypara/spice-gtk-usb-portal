@@ -30,12 +30,22 @@ mod imp {
         pub session: OnceCell<PortalSession<UsbProxy>>,
     }
 
+    unsafe impl ClassStruct for crate::ffi::SpiceUsbPortalDevicesClass {
+        type Type = Devices;
+    }
+
+    unsafe impl InstanceStruct for crate::ffi::SpiceUsbPortalDevices {
+        type Type = Devices;
+    }
+
     #[glib::object_subclass]
     impl ObjectSubclass for Devices {
-        const NAME: &'static str = "Devices";
+        const NAME: &'static str = "SpiceUsbPortalDevices";
         type Type = super::Devices;
         type ParentType = glib::Object;
         type Interfaces = (gio::AsyncInitable,);
+        type Class = crate::ffi::SpiceUsbPortalDevicesClass;
+        type Instance = crate::ffi::SpiceUsbPortalDevices;
     }
 
     impl ObjectImpl for Devices {
@@ -169,7 +179,7 @@ mod imp {
     }
 
     fn map_init_err(err: ashpd::Error) -> glib::Error {
-        glib::Error::new(SelfErrorDomain, &err.to_string())
+        glib::Error::new(crate::Error::Portal, &err.to_string())
     }
 }
 

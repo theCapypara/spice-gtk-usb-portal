@@ -267,7 +267,7 @@ mod devices_window {
                         }
                     }
                     let owned = attached_for_remove.borrow_mut().remove(desc.id());
-                    if let Some(mut owned) = owned {
+                    if let Some(owned) = owned {
                         glib::spawn_future_local(async move {
                             owned.detach_from_spice().await;
                         });
@@ -426,7 +426,7 @@ mod devices_window {
                         let is_attached = ctx.attached.borrow().contains_key(&id);
                         if is_attached {
                             let owned = ctx.attached.borrow_mut().remove(&id);
-                            if let Some(mut owned) = owned {
+                            if let Some(owned) = owned {
                                 owned.detach_from_spice().await;
                                 // Drop at end of scope releases the fd back to the portal.
                             }
@@ -442,7 +442,7 @@ mod devices_window {
                                 return;
                             }
                             let wid = WindowIdentifier::from_native(&parent).await;
-                            let mut owned = match ctx
+                            let owned = match ctx
                                 .devices
                                 .acquire_device(wid.as_ref(), id.clone(), desc.writable())
                                 .await
@@ -460,7 +460,7 @@ mod devices_window {
                                     return;
                                 }
                             };
-                            if let Err(e) = ctx.usbredir.attach(&mut owned).await {
+                            if let Err(e) = ctx.usbredir.attach(&owned).await {
                                 // owned drops at end of scope → portal release runs.
                                 show_error(&parent, "Attach failed", &e.to_string());
                                 return;

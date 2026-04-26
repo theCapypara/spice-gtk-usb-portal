@@ -17,11 +17,21 @@ mod imp {
         pub info: OnceCell<UsbDevice>,
     }
 
+    unsafe impl ClassStruct for crate::ffi::SpiceUsbPortalDeviceDescriptionClass {
+        type Type = DeviceDescription;
+    }
+
+    unsafe impl InstanceStruct for crate::ffi::SpiceUsbPortalDeviceDescription {
+        type Type = DeviceDescription;
+    }
+
     #[glib::object_subclass]
     impl ObjectSubclass for DeviceDescription {
-        const NAME: &'static str = "DeviceDescription";
+        const NAME: &'static str = "SpiceUsbPortalDeviceDescription";
         type Type = super::DeviceDescription;
         type ParentType = glib::Object;
+        type Class = crate::ffi::SpiceUsbPortalDeviceDescriptionClass;
+        type Instance = crate::ffi::SpiceUsbPortalDeviceDescription;
     }
 
     impl ObjectImpl for DeviceDescription {}

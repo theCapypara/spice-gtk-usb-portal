@@ -1,0 +1,2 @@
+namespace = "SpiceUsbPortal"
+sys_includes = ["gtk/gtk.h"]

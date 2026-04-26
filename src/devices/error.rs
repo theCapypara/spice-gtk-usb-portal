@@ -1,6 +1,3 @@
-use glib::Quark;
-use glib::error::ErrorDomain;
-
 pub type DeviceResult<T> = Result<T, DeviceError>;
 
 #[derive(Debug)]
@@ -32,26 +29,5 @@ impl From<ashpd::Error> for DeviceError {
 impl From<ashpd::desktop::usb::UsbError> for DeviceError {
     fn from(e: ashpd::desktop::usb::UsbError) -> Self {
         Self::Usb(e)
-    }
-}
-
-// Error domain for handling errors during async init.
-#[derive(Copy, Clone)]
-pub(crate) struct SelfErrorDomain;
-
-impl ErrorDomain for SelfErrorDomain {
-    fn domain() -> Quark {
-        Quark::from_str("spice_gtk_usb_portal_err")
-    }
-
-    fn code(self) -> i32 {
-        0
-    }
-
-    fn from(_code: i32) -> Option<Self>
-    where
-        Self: Sized,
-    {
-        Some(Self)
     }
 }

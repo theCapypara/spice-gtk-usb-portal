@@ -24,11 +24,21 @@ mod imp {
         pub max_channels: Cell<u32>,
     }
 
+    unsafe impl ClassStruct for crate::ffi::SpiceUsbPortalUsbredirClass {
+        type Type = Usbredir;
+    }
+
+    unsafe impl InstanceStruct for crate::ffi::SpiceUsbPortalUsbredir {
+        type Type = Usbredir;
+    }
+
     #[glib::object_subclass]
     impl ObjectSubclass for Usbredir {
-        const NAME: &'static str = "Usbredir";
+        const NAME: &'static str = "SpiceUsbPortalUsbredir";
         type Type = super::Usbredir;
         type ParentType = glib::Object;
+        type Class = crate::ffi::SpiceUsbPortalUsbredirClass;
+        type Instance = crate::ffi::SpiceUsbPortalUsbredir;
     }
 
     #[glib::derived_properties]
@@ -88,7 +98,7 @@ impl Usbredir {
         Ok(slf)
     }
 
-    pub async fn attach(&self, device: &mut OwnedUsbDevice) -> UsbredirResult<()> {
+    pub async fn attach(&self, device: &OwnedUsbDevice) -> UsbredirResult<()> {
         let Some(usb_manager) = self.imp().spice_usb_manager.upgrade() else {
             return Err(UsbredirError::NotConnected);
         };
@@ -112,7 +122,7 @@ impl Usbredir {
 
         trace!("device connected");
 
-        device.spice_device = Some((usb_manager.clone(), spice_device));
+        device.set_spice_device(usb_manager.clone(), spice_device);
 
         if let Some(session) = usb_manager.session() {
             self.refresh_channel_counts(&session, &usb_manager);
