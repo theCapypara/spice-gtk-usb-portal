@@ -1,0 +1,56 @@
+[package]
+name = "spice-gtk-usb-portal"
+version = "0.1.0"
+description = "Bridge between spice-gtk and the USB portal"
+authors = ["Marco Köpcke <hello@capypara.de>"]
+edition = "2024"
+
+[features]
+parent_window_gtk4 = ["ashpd/gtk4"]
+parent_window_gtk4_wayland = ["ashpd/gtk4_wayland"]
+parent_window_gtk4_x11 = ["ashpd/gtk4_x11"]
+parent_window_wayland = ["ashpd/wayland"]
+parent_window_raw_handle = ["ashpd/raw_handle"]
+# private features
+_glib_log = ["glib/log"]
+
+[dependencies]
+log = "0.4"
+futures-util = "0.3"
+regex = "1.12"
+
+[dependencies.glib]
+version = "0.22"
+
+[dependencies.gio]
+version = "0.22"
+
+[dependencies.ashpd]
+version = "0.13"
+features = ["usb", "async-io", "glib"]
+default-features = false
+
+[dependencies.spice-client-glib]
+git = "https://gitlab.gnome.org/theCapypara/spice-gtk-rs.git"
+rev = "5fe660a1894d0a9fc04e00df5d23bac712434a12"
+
+[[example]]
+name = "client"
+required-features = ["parent_window_gtk4", "_glib_log"]
+
+[dev-dependencies]
+stderrlog = "0.6"
+
+[dev-dependencies.gtk]
+package = "gtk4"
+version = "0.11"
+
+[dev-dependencies.rdw]
+package = "rdw4"
+git = "https://gitlab.gnome.org/theCapypara/rdw.git"
+rev = "c5f22c24b74eaa4ad2829bd533b7e440140b6df9"
+
+[dev-dependencies.rdw-spice]
+package = "rdw4-spice"
+git = "https://gitlab.gnome.org/theCapypara/rdw.git"
+rev = "c5f22c24b74eaa4ad2829bd533b7e440140b6df9"
