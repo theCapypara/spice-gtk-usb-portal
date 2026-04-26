@@ -1,0 +1,29 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    name: cargo build (default)
+    runs-on: ubuntu-24.04
+    container:
+      image: fedora:42
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/action/setup-fedora
+      - run: cargo build --workspace --all-targets
+
+  doc:
+    name: cargo doc
+    runs-on: ubuntu-24.04
+    container:
+      image: fedora:42
+    env:
+      RUSTDOCFLAGS: -D warnings
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/action/setup-fedora
+      - run: cargo doc --no-deps --all-features
