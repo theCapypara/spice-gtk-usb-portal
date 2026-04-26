@@ -13,7 +13,7 @@ runs:
       run: |
         dnf install -y \
           gcc gcc-c++ pkgconf-pkg-config make git curl findutils \
-          glib2-devel spice-glib-devel gtk4-devel openssl-devel
+          glib2-devel spice-glib-devel gtk4-devel openssl-devel libepoxy-devel
 
     - name: Install C-bindings tooling
       if: inputs.c-bindings == 'true'
