@@ -1,10 +1,14 @@
+#[cfg(feature = "capi")]
 use cargo_metadata::*;
+#[cfg(feature = "capi")]
 use std::path::*;
 
+#[cfg(feature = "capi")]
 use cbindgen::Builder;
 
 fn main() {
-    if cfg!(feature = "capi") {
+    #[cfg(feature = "capi")]
+    {
         let path = std::env::var("CARGO_MANIFEST_DIR").unwrap();
         let meta = MetadataCommand::new()
             .manifest_path("./Cargo.toml")

@@ -17,13 +17,18 @@ parent_window_raw_handle = ["ashpd/raw_handle"]
 # Enables generation of the C header via cbindgen during build.rs and
 # pulls in gtk4 + the GTK4 portal-window backend needed by the C entry
 # points. Set automatically by `cargo cinstall`.
-capi = ["dep:gtk", "parent_window_gtk4"]
+capi = ["dep:cargo_metadata", "dep:cbindgen", "dep:gtk", "parent_window_gtk4"]
 # private features
 _glib_log = ["glib/log"]
 
 [build-dependencies]
-cargo_metadata = "0.23"
-cbindgen = { git = "https://github.com/elmarco/cbindgen.git", rev = "0bb9eb6764a78929f3326187e0eef50287c41923", features = ["gobject"] }
+cargo_metadata = { version = "0.23", optional = true }
+
+[build-dependencies.cbindgen]
+git = "https://github.com/elmarco/cbindgen.git"
+rev = "0bb9eb6764a78929f3326187e0eef50287c41923"
+features = ["gobject"]
+optional = true
 
 [package.metadata.capi.header]
 name = "spice-usb-portal"
