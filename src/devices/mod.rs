@@ -199,7 +199,7 @@ impl Devices {
     pub async fn acquire_device(
         &self,
         parent_window: Option<&WindowIdentifier>,
-        device_id: DeviceID,
+        device_id: &DeviceID,
         writable: bool,
     ) -> DeviceResult<OwnedUsbDevice> {
         let usb = self.imp().proxy.get().expect("object must be init");
@@ -211,7 +211,7 @@ impl Devices {
             )
             .await?;
         for (acquired_id, result) in acquired {
-            if acquired_id == device_id {
+            if acquired_id == *device_id {
                 let owned_device = OwnedUsbDevice::new(usb, acquired_id, result?);
                 debug!("opened usb device {owned_device:?}");
                 return Ok(owned_device);

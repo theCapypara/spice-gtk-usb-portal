@@ -254,7 +254,7 @@ pub unsafe extern "C" fn spice_usb_portal_devices_acquire_device_async(
         };
         let id = DeviceID::from(device_id_str);
         let res = this
-            .acquire_device(parent_id.as_ref(), id, writable)
+            .acquire_device(parent_id.as_ref(), &id, writable)
             .await
             .map_err(glib::Error::from);
         task.return_result(res);

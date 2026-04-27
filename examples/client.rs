@@ -444,7 +444,7 @@ mod devices_window {
                             let wid = WindowIdentifier::from_native(&parent).await;
                             let owned = match ctx
                                 .devices
-                                .acquire_device(wid.as_ref(), id.clone(), desc.writable())
+                                .acquire_device(wid.as_ref(), &id, desc.writable())
                                 .await
                             {
                                 Ok(d) => d,
