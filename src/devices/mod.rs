@@ -118,7 +118,15 @@ mod imp {
 
                         match res {
                             Ok(mut stream) => {
-                                if let Some(response) = stream.next().await {
+                                let mut stream_net_fut = stream.next().fuse();
+                                // we do the same here as above, to not keep the strong ref forever
+                                let mut sleep_fut = timeout_future(Duration::from_secs(10)).fuse();
+                                let response = select! {
+                                    res = stream_net_fut => res,
+                                    _ = sleep_fut => continue,
+                                };
+
+                                if let Some(response) = response {
                                     let events = response.events();
                                     for ev in events {
                                         let action = ev.action();
