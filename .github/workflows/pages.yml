@@ -1,0 +1,58 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Don't cancel in-progress deployments. A queued one can wait for
+# the running one to finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build gi-docgen
+    runs-on: ubuntu-24.04
+    container:
+      image: fedora:42
+    env:
+      # Needed by gi-docgen so it can find Gtk-4.0.gir, SpiceClientGLib-2.0.gir,
+      # GObject-2.0.gir, Gio-2.0.gir from the system packages.
+      XDG_DATA_DIRS: /usr/local/share:/usr/share
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: ./.github/action/setup-fedora
+        with:
+          c-bindings: 'true'
+
+      - name: make doc
+        run: make doc
+
+      - name: Stage site
+        run: |
+          mkdir -p _site
+          cp -r inst/usr/share/doc/spice-gtk-usb-portal/. _site/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -39,11 +39,12 @@ vapi: $(VAPI)
 
 doc: $(DOC_INDEX)
 
-$(DOC_INDEX): $(GIR) $(DOC_CONFIG)
+$(DOC_INDEX): $(GIR) $(DOC_CONFIG) docs/overview.md
 	mkdir -p $(@D)
 	gi-docgen generate \
 		--config=$(DOC_CONFIG) \
 		--output-dir=$(DOC_DIR) \
+		--content-dir=docs \
 		--no-namespace-dir \
 		$(GIR_INCLUDE_FLAGS) \
 		$(GIR)

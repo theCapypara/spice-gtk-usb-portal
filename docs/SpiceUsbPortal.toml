@@ -36,3 +36,9 @@ show_class_hierarchy = true
 
 [source-location]
 base_url = "https://github.com/theCapypara/spice-gtk-usb-portal/-/blob/main/"
+
+[extra]
+# Listed on the index page. The first content file is treated as the overview.
+content_files = [
+    "overview.md",
+]
