@@ -138,11 +138,7 @@ g_signal_connect (devices, "device-changed", G_CALLBACK (on_device_added), NULL)
 ## Errors
 
 All fallible entry points report `GError` in the `SPICE_USB_PORTAL_ERROR`
-domain (see [error@Error]). Match against the integer codes -
-`SPICE_USB_PORTAL_ERROR_PORTAL`, `SPICE_USB_PORTAL_ERROR_USB`,
-`SPICE_USB_PORTAL_ERROR_NOT_CONNECTED`, `SPICE_USB_PORTAL_ERROR_ATTACH_FAILED`,
-`SPICE_USB_PORTAL_ERROR_FAILED` - to distinguish e.g. user denial of the
-portal dialog from a failure inside spice-gtk's redirection.
+domain (see [error@Error]).
 
 ## See also
 

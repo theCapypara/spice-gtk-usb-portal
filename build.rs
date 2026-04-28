@@ -44,6 +44,35 @@ fn main() {
         );
         config.autogen_warning = Some(warning + &version_info);
 
+        // cbindgen emits #[repr(i32)] enums as `enum NAME { ... };` plus a
+        // separate `typedef int32_t NAME;`. g-ir-scanner then sees NAME as an
+        // int alias, not an enum, so it cannot tie spice_usb_portal_error_quark()
+        // to a GError domain. Skip cbindgen's emit and write a proper
+        // `typedef enum { ... } SpiceUsbPortalError;` ourselves with a gtk-doc
+        // annotation, so g-ir-scanner registers it as a glib:error-domain.
+        config.export.exclude.push("Error".into());
+        config.after_includes = Some(
+            "\n\
+/**\n\
+ * SpiceUsbPortalError:\n\
+ * @SPICE_USB_PORTAL_ERROR_PORTAL: Error reported by the XDG USB portal.\n\
+ * @SPICE_USB_PORTAL_ERROR_USB: USB-level error from the portal.\n\
+ * @SPICE_USB_PORTAL_ERROR_NOT_CONNECTED: SPICE USB device manager is not available.\n\
+ * @SPICE_USB_PORTAL_ERROR_ATTACH_FAILED: spice-gtk refused to attach the device.\n\
+ * @SPICE_USB_PORTAL_ERROR_FAILED: Generic failure not covered by the other codes.\n\
+ *\n\
+ * Error codes for the %SPICE_USB_PORTAL_ERROR domain.\n\
+ */\n\
+typedef enum {\n  \
+    SPICE_USB_PORTAL_ERROR_PORTAL = 0,\n  \
+    SPICE_USB_PORTAL_ERROR_USB = 1,\n  \
+    SPICE_USB_PORTAL_ERROR_NOT_CONNECTED = 2,\n  \
+    SPICE_USB_PORTAL_ERROR_ATTACH_FAILED = 3,\n  \
+    SPICE_USB_PORTAL_ERROR_FAILED = 4,\n\
+} SpiceUsbPortalError;\n"
+                .to_string(),
+        );
+
         Builder::new()
             .with_crate(&path)
             .with_config(config)
