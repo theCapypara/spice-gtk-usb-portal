@@ -57,7 +57,7 @@ fn main() {
  * SpiceUsbPortalError:\n\
  * @SPICE_USB_PORTAL_ERROR_PORTAL: Error reported by the XDG USB portal.\n\
  * @SPICE_USB_PORTAL_ERROR_USB: USB-level error from the portal.\n\
- * @SPICE_USB_PORTAL_ERROR_NOT_CONNECTED: SPICE USB device manager is not available.\n\
+ * @SPICE_USB_PORTAL_ERROR_NOT_CONNECTED: SPICE session is not connected.\n\
  * @SPICE_USB_PORTAL_ERROR_ATTACH_FAILED: spice-gtk refused to attach the device.\n\
  * @SPICE_USB_PORTAL_ERROR_FAILED: Generic failure not covered by the other codes.\n\
  *\n\
