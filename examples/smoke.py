@@ -5,8 +5,8 @@
 #
 # Usage (after `make install` into ./inst):
 #
-#   GI_TYPELIB_PATH=$PWD/inst/usr/lib64/girepository-1.0:$PWD/inst/usr/lib/girepository-1.0 \
-#   LD_LIBRARY_PATH=$PWD/inst/usr/lib64:$PWD/inst/usr/lib \
+#   GI_TYPELIB_PATH=$PWD/inst/usr/lib64/girepository-1.0:$PWD/inst/usr/lib/girepository-1.0:$GI_TYPELIB_PATH \
+#   LD_LIBRARY_PATH=$PWD/inst/usr/lib64:$PWD/inst/usr/lib:$LD_LIBRARY_PATH \
 #   python3 examples/smoke.py
 
 import sys
