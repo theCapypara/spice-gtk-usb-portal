@@ -1,5 +1,10 @@
 # spice-gtk-usb-portal
 
+[![crates.io](https://img.shields.io/crates/v/spice-gtk-usb-portal.svg)](https://crates.io/crates/spice-gtk-usb-portal)
+[![docs.rs](https://img.shields.io/docsrs/spice-gtk-usb-portal)](https://docs.rs/spice-gtk-usb-portal)
+[![GIR docs](https://img.shields.io/badge/GIR%20docs-thecapypara.github.io-blueviolet)](https://thecapypara.github.io/spice-gtk-usb-portal/)
+[![Build](https://github.com/theCapypara/spice-gtk-usb-portal/actions/workflows/build.yml/badge.svg)](https://github.com/theCapypara/spice-gtk-usb-portal/actions/workflows/build.yml)
+
 A Rust bridge between [spice-gtk](https://gitlab.freedesktop.org/spice/spice-gtk)
 (via [`spice-client-glib`](https://gitlab.gnome.org/malureau/spice-gtk-rs))
 and the [XDG Desktop USB Portal](https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Usb.html).
