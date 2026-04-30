@@ -93,6 +93,16 @@ impl Usbredir {
         session.connect_channel_new(refresh.clone());
         session.connect_channel_destroy(refresh);
 
+        usb_manager.connect_free_channels_notify(glib::clone!(
+            #[weak]
+            slf,
+            move |usb_manager| {
+                if let Some(session) = usb_manager.session() {
+                    slf.refresh_channel_counts(&session, usb_manager);
+                }
+            }
+        ));
+
         slf.refresh_channel_counts(session, &usb_manager);
 
         Ok(slf)
@@ -124,9 +134,7 @@ impl Usbredir {
 
         device.set_spice_device(usb_manager.clone(), spice_device);
 
-        if let Some(session) = usb_manager.session() {
-            self.refresh_channel_counts(&session, &usb_manager);
-        }
+        usb_manager.notify("free-channels");
 
         Ok(())
     }

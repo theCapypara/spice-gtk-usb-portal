@@ -1,6 +1,7 @@
 use ashpd::desktop::usb::{DeviceID, UsbProxy};
 use ashpd::zvariant::OwnedFd;
 use glib;
+use glib::object::ObjectExt;
 use glib::subclass::prelude::*;
 use log::{trace, warn};
 use spice_client_glib as spice;
@@ -66,6 +67,8 @@ mod imp {
                     if let Err(err) = usb_manager.disconnect_device_future(&device).await {
                         warn!("error during usb device SPICE disconnect: {err}");
                     }
+
+                    usb_manager.notify("free-channels");
                 }
                 if let Some((proxy, device_id)) = portal_info {
                     trace!("dropped usb device - releasing");
@@ -123,6 +126,8 @@ impl OwnedUsbDevice {
             if let Err(err) = usb_manager.disconnect_device_future(&device).await {
                 warn!("error during usb device SPICE disconnect: {err}");
             }
+
+            usb_manager.notify("free-channels");
         }
     }
 
