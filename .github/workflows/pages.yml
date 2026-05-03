@@ -42,7 +42,7 @@ jobs:
           cp -r inst/usr/share/doc/spice-gtk-usb-portal/. _site/
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
