@@ -88,7 +88,7 @@ dependencies = [
  "gdk4-wayland",
  "gdk4-x11",
  "getrandom",
- "glib 0.22.5",
+ "glib 0.22.7",
  "gtk4",
  "raw-window-handle",
  "serde",
@@ -298,7 +298,7 @@ checksum = "5cc8d9aa793480744cd9a0524fef1a2e197d9eaa0f739cde19d16aba530dcb95"
 dependencies = [
  "bitflags 2.11.1",
  "cairo-sys-rs 0.22.0",
- "glib 0.22.5",
+ "glib 0.22.7",
  "libc",
 ]
 
@@ -725,7 +725,7 @@ checksum = "25f420376dbee041b2db374ce4573892a36222bb3f6c0c43e24f0d67eae9b646"
 dependencies = [
  "gdk-pixbuf-sys 0.22.0",
  "gio 0.22.5",
- "glib 0.22.5",
+ "glib 0.22.7",
  "libc",
 ]
 
@@ -780,7 +780,7 @@ dependencies = [
  "gdk-pixbuf 0.22.0",
  "gdk4-sys 0.11.2",
  "gio 0.22.5",
- "glib 0.22.5",
+ "glib 0.22.7",
  "libc",
  "pango 0.22.4",
 ]
@@ -828,7 +828,7 @@ dependencies = [
  "gdk4 0.11.2",
  "gdk4-wayland-sys",
  "gio 0.22.5",
- "glib 0.22.5",
+ "glib 0.22.7",
  "khronos-egl",
  "libc",
  "wayland-backend",
@@ -883,7 +883,7 @@ dependencies = [
  "gdk4 0.11.2",
  "gdk4-x11-sys",
  "gio 0.22.5",
- "glib 0.22.5",
+ "glib 0.22.7",
  "khronos-egl",
  "libc",
  "x11-dl",
@@ -942,7 +942,7 @@ dependencies = [
  "futures-io",
  "futures-util",
  "gio-sys 0.22.0",
- "glib 0.22.5",
+ "glib 0.22.7",
  "libc",
  "pin-project-lite",
  "smallvec",
@@ -1028,9 +1028,9 @@ dependencies = [
 
 [[package]]
 name = "glib"
-version = "0.22.5"
+version = "0.22.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a1b7df55594e0e787d1560e23f7e12d7360d0b22e7b7c228ec2488b9e59b1b6b"
+checksum = "c207e04e51605dcf7b2924c41591b3a10e1438eaac5bcf448fb91f325381104a"
 dependencies = [
  "bitflags 2.11.1",
  "futures-channel",
@@ -1100,7 +1100,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3db68f55ecfbf2264595fe399760f12bf14e2f8984969b73fae2f13b1dec0f50"
 dependencies = [
  "futures-core",
- "glib 0.22.5",
+ "glib 0.22.7",
  "glib-unix-sys",
  "libc",
 ]
@@ -1144,7 +1144,7 @@ version = "0.22.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c7d1b7881f96869f49808b6adfe906a93a57a34204952253444d68c3208d71f1"
 dependencies = [
- "glib 0.22.5",
+ "glib 0.22.7",
  "graphene-sys",
  "libc",
 ]
@@ -1169,7 +1169,7 @@ checksum = "53c912dfcbd28acace5fc99c40bb9f25e1dcb73efb1f2608327f66a99acdcb62"
 dependencies = [
  "cairo-rs 0.22.0",
  "gdk4 0.11.2",
- "glib 0.22.5",
+ "glib 0.22.7",
  "graphene-rs",
  "gsk4-sys",
  "libc",
@@ -1202,7 +1202,7 @@ dependencies = [
  "futures-channel",
  "futures-core",
  "futures-util",
- "glib 0.22.5",
+ "glib 0.22.7",
  "gstreamer-sys",
  "itertools",
  "kstring",
@@ -1225,7 +1225,7 @@ checksum = "714874829f75e805192ddc2bd130b9d7669ebc3ed0e8b106039dd3416cb82916"
 dependencies = [
  "futures-core",
  "futures-sink",
- "glib 0.22.5",
+ "glib 0.22.7",
  "gstreamer",
  "gstreamer-app-sys",
  "gstreamer-base",
@@ -1252,7 +1252,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "46e64660e1963ff3b6a4a5175f917524254a6ae36ac7b83e29b760d879a33073"
 dependencies = [
  "cfg-if",
- "glib 0.22.5",
+ "glib 0.22.7",
  "gstreamer",
  "gstreamer-audio-sys",
  "gstreamer-base",
@@ -1282,7 +1282,7 @@ checksum = "c08353a8a382be9a49b15fb9c46b3abd6f8a6e6439e1eaedc87d08f1abdcfad1"
 dependencies = [
  "atomic_refcell",
  "cfg-if",
- "glib 0.22.5",
+ "glib 0.22.7",
  "gstreamer",
  "gstreamer-base-sys",
  "libc",
@@ -1326,7 +1326,7 @@ dependencies = [
  "gdk-pixbuf 0.22.0",
  "gdk4 0.11.2",
  "gio 0.22.5",
- "glib 0.22.5",
+ "glib 0.22.7",
  "graphene-rs",
  "gsk4",
  "gtk4-macros",
@@ -1681,7 +1681,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4804fb6018c6604eac198f0f897320d3696c9af7983cde056f07cef93cac9202"
 dependencies = [
  "gio 0.22.5",
- "glib 0.22.5",
+ "glib 0.22.7",
  "libc",
  "pango-sys 0.22.0",
 ]
@@ -2069,7 +2069,7 @@ version = "0.8.0"
 source = "git+https://gitlab.gnome.org/theCapypara/spice-gtk-rs.git?rev=5fe660a1894d0a9fc04e00df5d23bac712434a12#5fe660a1894d0a9fc04e00df5d23bac712434a12"
 dependencies = [
  "gio 0.22.5",
- "glib 0.22.5",
+ "glib 0.22.7",
  "libc",
  "rusb",
  "spice-client-glib-sys",
@@ -2096,7 +2096,7 @@ dependencies = [
  "cbindgen 0.28.0 (git+https://github.com/elmarco/cbindgen.git?rev=0bb9eb6764a78929f3326187e0eef50287c41923)",
  "futures-util",
  "gio 0.22.5",
- "glib 0.22.5",
+ "glib 0.22.7",
  "gtk4",
  "log",
  "rdw4",
