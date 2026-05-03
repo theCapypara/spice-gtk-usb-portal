@@ -724,7 +724,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "25f420376dbee041b2db374ce4573892a36222bb3f6c0c43e24f0d67eae9b646"
 dependencies = [
  "gdk-pixbuf-sys 0.22.0",
- "gio 0.22.5",
+ "gio 0.22.6",
  "glib 0.22.5",
  "libc",
 ]
@@ -779,7 +779,7 @@ dependencies = [
  "cairo-rs 0.22.0",
  "gdk-pixbuf 0.22.0",
  "gdk4-sys 0.11.2",
- "gio 0.22.5",
+ "gio 0.22.6",
  "glib 0.22.5",
  "libc",
  "pango 0.22.4",
@@ -827,7 +827,7 @@ checksum = "7027433b8f19075ab22f01d0e0ba4373e303ffdb4ce4f846a2763cb020ea9bdc"
 dependencies = [
  "gdk4 0.11.2",
  "gdk4-wayland-sys",
- "gio 0.22.5",
+ "gio 0.22.6",
  "glib 0.22.5",
  "khronos-egl",
  "libc",
@@ -882,7 +882,7 @@ checksum = "13a00e4c617d6570633e44ba3ff221350669edf6cf3447a40f882dfb6f1dfdc3"
 dependencies = [
  "gdk4 0.11.2",
  "gdk4-x11-sys",
- "gio 0.22.5",
+ "gio 0.22.6",
  "glib 0.22.5",
  "khronos-egl",
  "libc",
@@ -933,9 +933,9 @@ dependencies = [
 
 [[package]]
 name = "gio"
-version = "0.22.5"
+version = "0.22.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "401b600a9795c46ff45890146968b712c96ce4e9393798804133e137bd81d89c"
+checksum = "e3848bcba3a35cc0a71df8ba8ecfd799d6bfb862342a53a4a915fb62213aa4e6"
 dependencies = [
  "futures-channel",
  "futures-core",
@@ -1325,7 +1325,7 @@ dependencies = [
  "futures-channel",
  "gdk-pixbuf 0.22.0",
  "gdk4 0.11.2",
- "gio 0.22.5",
+ "gio 0.22.6",
  "glib 0.22.5",
  "graphene-rs",
  "gsk4",
@@ -1680,7 +1680,7 @@ version = "0.22.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4804fb6018c6604eac198f0f897320d3696c9af7983cde056f07cef93cac9202"
 dependencies = [
- "gio 0.22.5",
+ "gio 0.22.6",
  "glib 0.22.5",
  "libc",
  "pango-sys 0.22.0",
@@ -2068,7 +2068,7 @@ name = "spice-client-glib"
 version = "0.8.0"
 source = "git+https://gitlab.gnome.org/theCapypara/spice-gtk-rs.git?rev=5fe660a1894d0a9fc04e00df5d23bac712434a12#5fe660a1894d0a9fc04e00df5d23bac712434a12"
 dependencies = [
- "gio 0.22.5",
+ "gio 0.22.6",
  "glib 0.22.5",
  "libc",
  "rusb",
@@ -2095,7 +2095,7 @@ dependencies = [
  "cargo_metadata",
  "cbindgen 0.28.0 (git+https://github.com/elmarco/cbindgen.git?rev=0bb9eb6764a78929f3326187e0eef50287c41923)",
  "futures-util",
- "gio 0.22.5",
+ "gio 0.22.6",
  "glib 0.22.5",
  "gtk4",
  "log",
