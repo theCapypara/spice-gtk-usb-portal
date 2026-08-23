@@ -10,7 +10,6 @@ use log::{trace, warn};
 use std::fmt::Debug;
 use std::mem;
 use std::os::fd::{AsRawFd, IntoRawFd, RawFd};
-use std::rc::Rc;
 use std::sync::Arc;
 
 #[cfg(feature = "spice")]
@@ -71,7 +70,7 @@ impl AsRawFd for PortalFd {
 /// A device acquired from the portal that can be attached to a backend via its
 /// [`PortalUsbredirAttacher`].
 pub struct GenericOwnedUsbDevice<T: PortalUsbredirAttacher> {
-    inner: Rc<Inner<T>>,
+    inner: Arc<Inner<T>>,
 }
 
 #[derive(Debug)]
@@ -97,7 +96,7 @@ impl<T: PortalUsbredirAttacher> GenericOwnedUsbDevice<T> {
         fd: OwnedFd,
     ) -> Self {
         let slf: Self = Self {
-            inner: Rc::new(Inner {
+            inner: Arc::new(Inner {
                 portal_info: Some((proxy.clone(), device_id)),
                 fd: Arc::new(PortalFd::new(fd)),
                 attacher: Some(futures_util::lock::Mutex::new(attacher)),
@@ -111,7 +110,7 @@ impl<T: PortalUsbredirAttacher> GenericOwnedUsbDevice<T> {
     /// The portal release step on drop is skipped for fds acquired this way.
     pub fn from_owned_fd(attacher: T, fd: OwnedFd) -> Self {
         let slf: Self = Self {
-            inner: Rc::new(Inner {
+            inner: Arc::new(Inner {
                 portal_info: None,
                 fd: Arc::new(PortalFd::new(fd)),
                 attacher: Some(futures_util::lock::Mutex::new(attacher)),
