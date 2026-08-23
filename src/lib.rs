@@ -176,4 +176,4 @@ pub use ashpd::desktop::usb::DeviceID;
 pub use error::Error;
 #[cfg(feature = "spice")]
 pub use usbredir::Usbredir;
-pub use usbredir::{UsbredirError, UsbredirResult};
+pub use usbredir::error::{UsbredirError, UsbredirResult};

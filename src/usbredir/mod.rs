@@ -1,4 +1,4 @@
-mod error;
+pub(crate) mod error;
 #[cfg(feature = "spice")]
 mod spice_impl;
 
