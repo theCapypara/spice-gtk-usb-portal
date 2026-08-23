@@ -10,6 +10,7 @@ pub enum Error {
     NotConnected = 2,
     AttachFailed = 3,
     Failed = 4,
+    AlreadyAttached = 5,
 }
 
 impl From<DeviceError> for glib::Error {
@@ -29,6 +30,9 @@ impl From<UsbredirError> for glib::Error {
             UsbredirError::NotConnected => glib::Error::new(Error::NotConnected, &e.to_string()),
             UsbredirError::DeviceAttachFailed => {
                 glib::Error::new(Error::AttachFailed, &e.to_string())
+            }
+            UsbredirError::AlreadyAttached => {
+                glib::Error::new(Error::AlreadyAttached, &e.to_string())
             }
         }
     }

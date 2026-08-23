@@ -9,6 +9,9 @@ edition = "2024"
 crate-type = ["cdylib", "rlib", "staticlib"]
 
 [features]
+default = ["parent_window_gtk4", "spice"]
+
+spice = ["dep:spice-client-glib"]
 parent_window_gtk4 = ["ashpd/gtk4"]
 parent_window_gtk4_wayland = ["ashpd/gtk4_wayland"]
 parent_window_gtk4_x11 = ["ashpd/gtk4_x11"]
@@ -17,7 +20,8 @@ parent_window_raw_handle = ["ashpd/raw_handle"]
 # Enables generation of the C header via cbindgen during build.rs and
 # pulls in gtk4 + the GTK4 portal-window backend needed by the C entry
 # points. Set automatically by `cargo cinstall`.
-capi = ["dep:cargo_metadata", "dep:cbindgen", "dep:gtk", "parent_window_gtk4"]
+capi = ["dep:cargo_metadata", "dep:cbindgen", "dep:gtk", "parent_window_gtk4", "spice"]
+
 # private features
 _glib_log = ["glib/log"]
 
@@ -65,11 +69,12 @@ default-features = false
 
 [dependencies.spice-client-glib]
 version = "0.8"
-features = ["v0_40"]
+optional = true
+features = ["v0_43"]
 
 [[example]]
 name = "client"
-required-features = ["parent_window_gtk4", "_glib_log"]
+required-features = ["parent_window_gtk4", "_glib_log", "spice"]
 
 [dev-dependencies]
 stderrlog = "0.6"

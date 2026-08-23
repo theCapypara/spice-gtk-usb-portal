@@ -4,8 +4,12 @@ mod opened_device;
 
 pub use self::description::DeviceDescription;
 pub use self::error::*;
-pub use self::opened_device::OwnedUsbDevice;
+#[cfg(feature = "spice")]
+pub use self::opened_device::spice::OwnedUsbDevice;
+pub use self::opened_device::{GenericOwnedUsbDevice, PortalFd, PortalUsbredirAttacher};
 use super::{DeviceID, WindowIdentifier};
+#[cfg(feature = "spice")]
+use crate::devices::opened_device::spice::SpicePortalUsbredirAttacher;
 use ashpd::desktop::Session as PortalSession;
 use ashpd::desktop::usb::{Device, UsbError, UsbEventAction, UsbProxy};
 use futures_util::{FutureExt, StreamExt, select};
@@ -17,6 +21,7 @@ use glib::subclass::Signal;
 use glib::timeout_future;
 use log::{debug, trace, warn};
 use std::cell::OnceCell;
+use std::fmt::Debug;
 use std::pin::Pin;
 use std::sync::{Arc, OnceLock};
 use std::time::Duration;
@@ -204,12 +209,13 @@ impl Devices {
         Ok(slf)
     }
 
-    pub async fn acquire_device(
+    pub async fn acquire_device_with_attacher<T: PortalUsbredirAttacher>(
         &self,
+        attacher: T,
         parent_window: Option<&WindowIdentifier>,
         device_id: &DeviceID,
         writable: bool,
-    ) -> DeviceResult<OwnedUsbDevice> {
+    ) -> DeviceResult<GenericOwnedUsbDevice<T>> {
         let usb = self.imp().proxy.get().expect("object must be init");
         let acquired = usb
             .acquire_devices(
@@ -220,12 +226,30 @@ impl Devices {
             .await?;
         for (acquired_id, result) in acquired {
             if acquired_id == *device_id {
-                let owned_device = OwnedUsbDevice::new(usb, acquired_id, result?);
+                let owned_device = GenericOwnedUsbDevice::new(attacher, usb, acquired_id, result?);
                 debug!("opened usb device {owned_device:?}");
                 return Ok(owned_device);
             }
         }
         Err(UsbError(Some("portal did not return the expected device".into())).into())
+    }
+
+    #[cfg(feature = "spice")]
+    pub async fn acquire_device(
+        &self,
+        parent_window: Option<&WindowIdentifier>,
+        device_id: &DeviceID,
+        writable: bool,
+    ) -> DeviceResult<OwnedUsbDevice> {
+        Ok(OwnedUsbDevice::new(
+            self.acquire_device_with_attacher(
+                SpicePortalUsbredirAttacher::default(),
+                parent_window,
+                device_id,
+                writable,
+            )
+            .await?,
+        ))
     }
 
     pub async fn enumerate_devices(&self) -> DeviceResult<Vec<DeviceDescription>> {
