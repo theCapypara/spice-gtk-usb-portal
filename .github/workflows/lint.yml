@@ -10,9 +10,9 @@ jobs:
     name: Rustfmt
     runs-on: ubuntu-24.04
     container:
-      image: fedora:42
+      image: fedora:45
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/action/setup-fedora
       - run: cargo fmt --all -- --check
 
@@ -20,8 +20,8 @@ jobs:
     name: Clippy
     runs-on: ubuntu-24.04
     container:
-      image: fedora:42
+      image: fedora:45
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/action/setup-fedora
       - run: cargo clippy --workspace --all-targets --all-features -- -D warnings

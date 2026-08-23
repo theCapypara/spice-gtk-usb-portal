@@ -10,9 +10,9 @@ jobs:
     name: cargo build (default)
     runs-on: ubuntu-24.04
     container:
-      image: fedora:42
+      image: fedora:45
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/action/setup-fedora
       - run: cargo build --workspace --all-targets
       - run: cargo test --doc
@@ -21,9 +21,9 @@ jobs:
     name: cargo build (no default)
     runs-on: ubuntu-24.04
     container:
-      image: fedora:42
+      image: fedora:45
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/action/setup-fedora
       - run: cargo build --workspace --all-targets --no-default-features --features=parent_window_gtk4
 
@@ -31,9 +31,9 @@ jobs:
     name: cargo build (capi)
     runs-on: ubuntu-24.04
     container:
-      image: fedora:42
+      image: fedora:45
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/action/setup-fedora
       - run: cargo build --workspace --all-targets --no-default-features --features=capi
 
@@ -41,10 +41,10 @@ jobs:
     name: cargo doc
     runs-on: ubuntu-24.04
     container:
-      image: fedora:42
+      image: fedora:45
     env:
       RUSTDOCFLAGS: -D warnings
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/action/setup-fedora
       - run: cargo doc --no-deps --all-features
