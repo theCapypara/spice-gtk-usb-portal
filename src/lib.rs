@@ -127,7 +127,7 @@
 //!         })
 //!     }
 //!
-//!     fn attached(&self) -> bool {
+//!     fn is_attached(&self) -> bool {
 //!         self.attached
 //!     }
 //! }
