@@ -405,14 +405,16 @@ pub unsafe extern "C" fn spice_usb_portal_owned_device_is_attached(
     this: *mut SpiceUsbPortalOwnedUsbDevice,
 ) -> glib::ffi::gboolean {
     let this: OwnedUsbDevice = from_glib_none(this);
-    this.attached().into_glib()
+    this.is_attached_sync().into_glib()
 }
 
 /// spice_usb_portal_owned_device_get_fd:
 /// @self: a #SpiceUsbPortalOwnedUsbDevice
 ///
-/// Returns: the underlying file descriptor (or -1 once spice-gtk has taken
-///   ownership). Do not close it manually.
+/// Returns: the underlying file descriptor, or -1 if this object was not
+///   created via spice_usb_portal_devices_acquire_device_finish(). The fd
+///   number stays valid after spice-gtk has taken ownership of it.
+///   Do not close it manually.
 #[unsafe(no_mangle)]
 pub unsafe extern "C" fn spice_usb_portal_owned_device_get_fd(
     this: *mut SpiceUsbPortalOwnedUsbDevice,

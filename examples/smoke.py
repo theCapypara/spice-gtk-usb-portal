@@ -64,6 +64,15 @@ print(
     SpiceUsbPortal.Usbredir.__gtype__.name,
 )
 
+# An OwnedUsbDevice constructed directly via g_object_new (instead of
+# Devices.acquire_device) is uninitialized; its accessors must degrade
+# gracefully (fd -1, not attached) rather than abort the process.
+uninitialized = SpiceUsbPortal.OwnedUsbDevice()
+assert uninitialized.get_fd() == -1, "uninitialized OwnedUsbDevice must report fd -1"
+assert not uninitialized.is_attached(), "uninitialized OwnedUsbDevice must not be attached"
+assert uninitialized.get_device_id() is None, "uninitialized OwnedUsbDevice must have no id"
+print("Uninitialized OwnedUsbDevice degrades gracefully")
+
 SpiceUsbPortal.Devices.new_async(None, on_devices_ready, None)
 loop.run()
 sys.exit(exit_code)

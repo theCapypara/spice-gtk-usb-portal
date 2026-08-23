@@ -3,7 +3,6 @@ use glib;
 use glib::subclass::prelude::*;
 use regex::{Regex, RegexBuilder};
 use std::borrow::Borrow;
-use std::cell::OnceCell;
 use std::sync::OnceLock;
 
 mod imp {
@@ -13,8 +12,8 @@ mod imp {
     #[properties(wrapper_type = super::DeviceDescription)]
     #[derive(Debug)]
     pub struct DeviceDescription {
-        pub id: OnceCell<DeviceID>,
-        pub info: OnceCell<UsbDevice>,
+        pub id: OnceLock<DeviceID>,
+        pub info: OnceLock<UsbDevice>,
     }
 
     unsafe impl ClassStruct for crate::ffi::SpiceUsbPortalDeviceDescriptionClass {

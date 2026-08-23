@@ -9,33 +9,21 @@ A Rust bridge between [spice-gtk](https://gitlab.freedesktop.org/spice/spice-gtk
 (via [`spice-client-glib`](https://gitlab.gnome.org/malureau/spice-gtk-rs))
 and the [XDG Desktop USB Portal](https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Usb.html).
 
-It enables applications to redirect USB devices over a SPICE connection using
-that portal.
+It enables applications to redirect USB devices over a SPICE connection using that portal.
 
 Unlike `spice-gtk`'s builtin device management, which relies on
 `libusb` opening devices itself, requiring direct access to `/dev/bus/usb`
-and a helper binary with elevated permissions, the portal-based approach
-requires only portal access and is suitable for sandboxed applications.
-This approach only has the drawback of requiring users to manage write
-permissions to their devices themselves.
+and a helper binary with elevated permissions, the portal-based approach requires only portal access and is suitable for
+sandboxed applications. This approach only has the drawback of requiring users to manage write permissions to their
+devices themselves.
+
+Additionally, Rust-based applications can use this crate to attach portal devices to backends other than SPICE by
+providing their own attachment logic (see [Without SPICE](#without-spice) below).
 
 ## Release Status
 
-This crate is **not yet available on crates.io** and currently has two hard
-prerequisites that will be lifted over time:
-
-1. **spice-gtk should be built from a not-yet-merged branch.**
-   The stable `v0.42` has a bug that otherwise causes crashes whenever
-   USB devices are disconnected.
-   This bug is currently being addressed
-   in [merge request !144](https://gitlab.freedesktop.org/spice/spice-gtk/-/merge_requests/144).
-
-2. **`spice-client-glib` is pinned to a git revision.** The
-   [`spice-gtk-rs`](https://gitlab.gnome.org/theCapypara/spice-gtk-rs) bindings are currently pinned to a version
-   that adds support for `spice_usb_backend_allocate_device_for_file_descriptor`.
-
-Once MR !144 is merged and new releases of spice-gtk and spice-gtk-rs are
-released, these prerequisites will be lifed.
+The crate is currently not released on crates.io due to some git dependencies. The main issue is that the
+[GObject support for cbindgen](https://github.com/mozilla/cbindgen/pull/1133) needs to be merged.
 
 ## Usage
 
@@ -43,10 +31,19 @@ released, these prerequisites will be lifed.
 
 See [`examples/client.rs`](examples/client.rs) for a complete example.
 
+#### Without SPICE
+
+The Rust crate can also be built without the default `spice` feature, in which case it does not include any
+SPICE-related functionality (and does not link
+`spice-client-glib`), but can still be used to get devices from the USB portal and attach them to a custom backend by
+implementing the
+`PortalUsbredirAttacher` trait. See the "Custom backend implementation" section of the crate documentation for a
+complete example.
+
 ### C / Python / Vala / JavaScript (GObject Introspection)
 
-The crate also ships a C shared library plus GObject Introspection data
-(`.gir`, `.typelib`, `.vapi`), built via [`cargo-c`](https://github.com/lu-zero/cargo-c)
+The crate also ships a C shared library plus GObject Introspection data (`.gir`, `.typelib`, `.vapi`), built via [
+`cargo-c`](https://github.com/lu-zero/cargo-c)
 and a small `Makefile`:
 
 ```sh
