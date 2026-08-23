@@ -20,6 +20,11 @@ devices themselves.
 Additionally, Rust-based applications can use this crate to attach portal devices to backends other than SPICE by
 providing their own attachment logic (see [Without SPICE](#without-spice) below).
 
+## Release Status
+
+The crate is currently not released on crates.io due to some git dependencies. The main issue is that the
+[GObject support for cbindgen](https://github.com/mozilla/cbindgen/pull/1133) needs to be merged.
+
 ## Usage
 
 ### Rust
